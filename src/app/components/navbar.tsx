@@ -16,7 +16,7 @@ function Navbar() {
                 <>
                 <Link href={'/pricing'} className='font-medium hover:bg-zinc-100 px-2 py-1 rounded-lg'>Pricing</Link>
                 <LoginLink className='font-medium hover:bg-zinc-100 px-2 py-1 rounded-lg'>Sign In</LoginLink>
-                <RegisterLink className='font-medium flex bg-gray-950  text-white hover:bg-gray-700 px-3 py-2 rounded-lg'>Get Started <BsArrowRight className='mt-[5px] ml-2'></BsArrowRight></RegisterLink>
+                <RegisterLink className='font-medium flex bg-blue-700  text-white hover:bg-blue-500 px-3 py-2 rounded-lg'>Get Started <BsArrowRight className='mt-[5px] ml-2'></BsArrowRight></RegisterLink>
                 </>
             </div>
         </div>
