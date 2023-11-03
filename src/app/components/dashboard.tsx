@@ -60,14 +60,14 @@ function Dashboard() {
                   </div>
                 </Link>
 
-                <div className="px-6 mt-4 grid grid-cols-3 place-items-center py-2 gap-6 text-xs text-zinc-500">
+                <div className="px-6 mt-4 grid grid-cols-3 place-items-center py-3 gap-6 text-xs text-zinc-500">
                   <div className="flex items-center gap-2">
                     <BiPlus />
                     {format(new Date(file.createAt), "MMM yyyy")}
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <BiMessageDots />
+                    <BiMessageDots size={'17px'}/> mocked
                   </div>
 
                   <button onClick={() => deleteFile({ id: file.id })}>
@@ -94,7 +94,9 @@ function Dashboard() {
                         </div>
                       </>
                     ) : (
-                      <BiTrashAlt />
+                      <div className="bg-rose-100 py-2 px-8 rounded-lg">
+                      <BiTrashAlt className="text-red-500" size={"17px"}/>
+                      </div>
                     )}
                   </button>
                 </div>

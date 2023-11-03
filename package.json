@@ -11,6 +11,7 @@
   "dependencies": {
     "@kinde-oss/kinde-auth-nextjs": "^1.8.25",
     "@prisma/client": "^5.5.2",
+    "@react-pdf/renderer": "^3.1.14",
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-query": "^4.36.1",
     "@trpc/client": "^10.43.0",
