@@ -1,4 +1,5 @@
 'use client'
+import { useUploadThing } from "@/lib/uploadThing";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import { AiOutlineCloud, AiOutlineFile } from "react-icons/ai";
@@ -6,6 +7,7 @@ import { AiOutlineCloud, AiOutlineFile } from "react-icons/ai";
 function UploadArea() {
     const [isUploading, setIsUploading] = useState<boolean>(true)
     const [uploadProgress, setUploadProgress] = useState<number>(0)
+    const {startUpload }  = useUploadThing('PDFUploader')
 
     const progresSimulation = () => {
       setUploadProgress(0)
@@ -25,6 +27,11 @@ function UploadArea() {
       setIsUploading(true)
       const progressInterval = progresSimulation()
       await new Promise((resolve) => setTimeout(resolve, 10000))
+
+      const res = await startUpload(acceptedFile)
+      if(!res){
+        
+      }
       
       clearInterval(progressInterval)
       setUploadProgress(100)
