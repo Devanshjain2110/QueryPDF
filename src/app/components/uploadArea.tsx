@@ -5,12 +5,15 @@ import Dropzone from "react-dropzone";
 import { AiOutlineCloud, AiOutlineFile } from "react-icons/ai";
 import { trpc } from "../_trpc/client";
 import { useRouter } from "next/navigation";
+import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/components/ui/use-toast";
 
 function UploadArea() {
   const router = useRouter();
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const { startUpload } = useUploadThing("PDFUploader");
+  const {toast} = useToast()
   const { mutate: startPolling } = trpc.getFile.useMutation({
     onSuccess: (file) => {
       router.push(`/dashboard/${file.id}`);
@@ -40,31 +43,23 @@ function UploadArea() {
 
         const res = await startUpload(acceptedFile);
         if (!res) {
-          return (
-            <div className="toast toast-end top-10">
-              <div className="alert alert-info">
-                <span>New mail arrived.</span>
-              </div>
-              <div className="alert alert-success">
-                <span>Message sent successfully.</span>
-              </div>
-            </div>
-          );
-        }
-
+          return toast({
+        title : 'Something went wrong',
+        description : 'Please try again later',
+        variant: "destructive"
+        })
+      }
         const [fileResponse] = res;
         const key = fileResponse.key;
 
         if (!key) {
-          <div className="toast toast-end">
-            <div className="alert alert-info">
-              <span>New mail arrived.</span>
-            </div>
-            <div className="alert alert-success">
-              <span>Message sent successfully.</span>
-            </div>
-          </div>;
-        }
+          return toast({
+            title : 'Something went wrong',
+            description : 'Please try again later',
+            variant: "destructive"
+            })
+          }
+        
 
         clearInterval(progressInterval);
         setUploadProgress(100);
@@ -102,12 +97,12 @@ function UploadArea() {
               ) : null}
 
               {isUploading ? (
-                <div className="flex flex-col items-center justify-center w-full mt-5 max-w-xs mx-auto">
-                  <progress
+                <div className="flex flex-col justify-center items-center first-letter:w-full mt-4 max-w-xs mx-auto">
+                  <Progress
                     className="progress progress-info w-56"
                     value={uploadProgress}
-                    max="100"
-                  ></progress>
+                
+                  />
                   {uploadProgress === 100 ? (
                     <div className="flex gap-1 items-center justify-center text-sm text-zinc-700 text-center pt-2">
                          <div role="status">

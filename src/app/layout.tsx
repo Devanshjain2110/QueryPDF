@@ -4,7 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "./components/navbar";
 import Providers from "./components/providers";
-
+import { Toaster } from "@/components/ui/toaster";
+import 'simplebar-react/dist/simplebar.min.css'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
         )}
       >
          <Providers>
+          <Toaster /> 
         <Navbar />
         {children}
         </Providers>

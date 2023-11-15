@@ -4,7 +4,21 @@ import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-import {useResizeDetector} from 'react-resize-detector'
+import { useResizeDetector } from "react-resize-detector";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import SimpleBar from 'simplebar-react'
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@/lib/utils";
+import { BiChevronDown,  BiRotateRight, BiSearch } from "react-icons/bi";
+import { useToast } from "@/components/ui/use-toast";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import PdfFullScreen from "./pdfFullScreen";
+
+
+
 type PdfRendererProps = {
   url: string;
 };
@@ -31,14 +45,125 @@ const loader = (
   </div>
 );
 function PdfRenderer({ url }: PdfRendererProps) {
-  const {width,ref, height} = useResizeDetector()
+  const { width, ref, height } = useResizeDetector();
+  const [numPages, setNumPages] = useState<number>();
+  const [currPage, setCurrPage] = useState<number>(1);
+  const [scale, setScale] = useState<number>(1)
+const [rotation, setRotation] = useState<number>(0)
+const {toast} = useToast()
+  const customPageValidator = z.object({
+    page: z
+      .string()
+      .refine((num) => Number(num) > 0 && Number(num) <= numPages!),
+  });
+  type TCustomPageValidator = z.infer<typeof customPageValidator>;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<TCustomPageValidator>({
+    defaultValues: {
+      page: "1",
+    },
+    resolver: zodResolver(customPageValidator),
+  });
+
+  const handlePageSubmit = ({ page }: TCustomPageValidator) => {
+    setCurrPage(Number(page));
+    setValue("page", String(page));
+  };
+
   return (
     <div className="w-full bg-white rounded-md shadow flex flex-col items-center">
       <div className="h-14 w-full border-b border-zinc-200 flex items-center justify-between px-2">
-        <div className="flex items-center gap-1 5">Top bar</div>
+        <div className="flex items-center">
+          <button
+            className="p-4 rounded-md hover:bg-zinc-100"
+            disabled={currPage <= 1}
+            onClick={() => {
+              setCurrPage((prev) => (prev - 1 > 1 ? prev - 1 : 1));
+              setValue("page", String(currPage-1))
+            }}
+          >
+            <FaChevronDown />
+          </button>
+          <div className="flex items-center gap-1.5">
+            <input
+              {...register("page")}
+              type="text"
+              placeholder="Page"
+              className={cn(
+                "input text-lg input-bordered text-center rounded-lg max-w-xs bg-inherit w-[30px] hover:border-blue-700 hover:border-2",
+                errors.page && "border-red-400 border-2 hover:border-red-400"
+              )}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit(handlePageSubmit)();
+                }
+              }}
+            />
+            <p className="text-zinc-700 text-sm space-x-1">
+              <span className="text-xl">/</span>
+              <span className="text-xl"> {numPages ?? "X"}</span>
+            </p>
+          </div>
+          <button
+            className="p-4 ml-1 rounded-md hover:bg-zinc-100"
+            disabled={numPages === undefined || currPage === numPages}
+            onClick={() => {
+              setCurrPage((prev) =>
+                prev + 1 > numPages! ? numPages! : prev + 1
+              );
+              setValue("page", String(currPage+1))
+            }}
+          >
+            <FaChevronUp />
+          </button>
+        </div>
+        <div className='flex space-x-2'>
+          <DropdownMenu >
+            <DropdownMenuTrigger asChild>
+             
+              <button
+                className='gap-1.5'
+                aria-label='zoom'
+                > <div className="flex justify-between">
+                <BiSearch className='h-5 w-5 mt-1 mr-1' size={'40px'} />
+                <span className="font-semibold">{scale * 100}%</span>
+                <BiChevronDown className='h-5 w-5 mt-[3px] ml-1 opacity-50' />   </div>
+              </button>
+           
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                onSelect={() => setScale(1)}>
+                100%
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => setScale(1.5)}>
+                150%
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => setScale(2)}>
+                200%
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => setScale(2.5)}>
+                250%
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+    <button onClick={() => setRotation((prev) => prev + 90)} className="p-3 hover:bg-zinc-100 rounded-xl">
+      <BiRotateRight  size={20}/>
+    </button>
+         </div>
+
+     <PdfFullScreen fileUrl={url}/>
       </div>
 
       <div className="flex-1  w-full max-h-screen">
+        <SimpleBar autoHide={false} className="max-h-[calc(100vh-10rem)]">
         <div ref={ref} className="">
           <Document
             loading={loader}
@@ -46,20 +171,21 @@ function PdfRenderer({ url }: PdfRendererProps) {
             className="max-h-full"
             onLoadError={() => {
               return (
-                <div className="toast toast-top toast-start">
-                  <div className="alert alert-info">
-                    <span>New mail arrived.</span>
-                  </div>
-                  <div className="alert alert-success">
-                    <span>Message sent successfully.</span>
-                  </div>
-                </div>
+                toast({
+                  title  : 'Error Loading Pdf',
+                  description : 'Please Try Again Later',
+                  variant : 'destructive'
+                })
               );
             }}
+            onLoadSuccess={({ numPages }) => {
+              setNumPages(numPages);
+            }}
           >
-            <Page pageNumber={1} width={width ? width : 1}/>
+            <Page pageNumber={currPage} width={width ? width : 1} scale={scale} rotate={rotation} />
           </Document>
         </div>
+        </SimpleBar>
       </div>
     </div>
   );
