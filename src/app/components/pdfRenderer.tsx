@@ -77,7 +77,7 @@ const {toast} = useToast()
   return (
     <div className="w-full bg-white rounded-md shadow flex flex-col items-center">
       <div className="h-14 w-full border-b border-zinc-200 flex items-center justify-between px-2">
-        <div className="flex items-center">
+        <div className="flex">
           <button
             className="p-4 rounded-md hover:bg-zinc-100"
             disabled={currPage <= 1}
@@ -122,6 +122,7 @@ const {toast} = useToast()
           </button>
         </div>
         <div className='flex space-x-2'>
+       
           <DropdownMenu >
             <DropdownMenuTrigger asChild>
              
@@ -157,9 +158,10 @@ const {toast} = useToast()
     <button onClick={() => setRotation((prev) => prev + 90)} className="p-3 hover:bg-zinc-100 rounded-xl">
       <BiRotateRight  size={20}/>
     </button>
+    <PdfFullScreen fileUrl={url}/>
          </div>
 
-     <PdfFullScreen fileUrl={url}/>
+    
       </div>
 
       <div className="flex-1  w-full max-h-screen">
