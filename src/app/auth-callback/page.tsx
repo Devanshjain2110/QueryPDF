@@ -12,7 +12,7 @@ const Page = () => {
   const origin = searchParams.get('origin')
 
   const retry = useRef(0);
-  const maxRetryCount = 10;
+  const maxRetryCount = 3;
 
   const { refetch } = trpc.authCallback.useQuery(undefined, {
     onSuccess: ({ success }) => {
