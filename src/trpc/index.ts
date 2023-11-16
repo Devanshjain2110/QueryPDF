@@ -9,7 +9,7 @@ export const appRouter = router({
     const { getUser } = getKindeServerSession();
     const user = getUser();
 
-    if (!user.email || !user.id) throw new TRPCError({ code: "UNAUTHORIZED" });
+    if (!user?.email || !user.id) throw new TRPCError({ code: "UNAUTHORIZED" });
 
     const dbUser = await db.user.findFirst({
       where: {

@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { trpc } from '../_trpc/client'
+import { useRef } from 'react'
 
 
 const Page = () => {
@@ -10,21 +11,34 @@ const Page = () => {
   const searchParams = useSearchParams()
   const origin = searchParams.get('origin')
 
-  trpc.authCallback.useQuery(undefined, {
+  const retry = useRef(0);
+  const maxRetryCount = 10;
+
+  const { refetch } = trpc.authCallback.useQuery(undefined, {
     onSuccess: ({ success }) => {
       if (success) {
         // user is synced to db
-        router.push(origin ? `/${origin}` : '/dashboard')
+        router.push(origin ? `/${origin}` : "/dashboard");
       }
     },
     onError: (err) => {
-      if (err.data?.code === 'UNAUTHORIZED') {
-        router.push('/sign-in')
+      console.log(err);
+      if (err.data?.code === "UNAUTHORIZED") {
+        retry.current = retry.current + 1;
+        if (retry.current <= maxRetryCount) {
+          // Retry up to maxRetryCount
+          setTimeout(() => {
+            refetch();
+          }, 500);
+        } else {
+          router.push("/sign-in");
+        }
       }
     },
-    retry: true,
+
+    retry: false,
     retryDelay: 500,
-  })
+  });
 
   return (
     <div className='w-full mt-24 flex justify-center'>
