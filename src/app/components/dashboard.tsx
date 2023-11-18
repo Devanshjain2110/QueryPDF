@@ -37,7 +37,7 @@ function Dashboard() {
           {files
             .sort(
               (a, b) =>
-                new Date(b.createAt).getTime() - new Date(a.createAt).getTime()
+                new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
             )
             .map((file) => (
               <li
@@ -63,7 +63,7 @@ function Dashboard() {
                 <div className="px-6 mt-4 grid grid-cols-3 place-items-center py-3 gap-6 text-xs text-zinc-500">
                   <div className="flex items-center gap-2">
                     <BiPlus />
-                    {format(new Date(file.createAt), "MMM yyyy")}
+                    {format(new Date(file.createdAt), "MMM yyyy")}
                   </div>
 
                   <div className="flex items-center gap-2">
