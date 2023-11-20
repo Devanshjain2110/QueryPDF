@@ -3,7 +3,7 @@ import { SendMessageValidator } from "@/lib/validators/SendMessageValidator";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { NextRequest } from "next/server";
-import { getPineconeClient } from "@/lib/pinecone";
+import { pinecone } from "@/lib/pinecone";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { openai } from "@/lib/openai";
 import { OpenAIStream, StreamingTextResponse } from 'ai'
@@ -53,8 +53,7 @@ export const POST = async (req: NextRequest) => {
     openAIApiKey: process.env.OPENAI_API_KEY,
   });
 
-  // // Initialize the Pinecone vector store
-  const pinecone = await getPineconeClient();
+
   const pineconeIndex = pinecone.Index("querypdf"); // Use a single index name
 
   const vectorStore = await PineconeStore.fromExistingIndex(embeddings,

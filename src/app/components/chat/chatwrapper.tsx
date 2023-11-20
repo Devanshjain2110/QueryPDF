@@ -4,6 +4,7 @@ import ChatInput from "./chatInput";
 import Messages from "./messages";
 import { ChevronLeft, Loader2, XCircle } from "lucide-react";
 import Link from "next/link";
+import ChatContextProvider from "./chatContext";
 
 type ChatWrapperProps = {
   fileId: string;
@@ -70,12 +71,14 @@ function ChatWrapper({ fileId }: ChatWrapperProps) {
 
 
   return (
+    <ChatContextProvider fileId={fileId}>
     <div className="relative min-h-full bg-zinc-50 divide-y flex divide-zinc-200 flex-col justify-between gap-2">
       <div className="flex flex-col flex-1 justify-between mb-28">
         <Messages />
       </div>
       <ChatInput />
     </div>
+   </ChatContextProvider>
   );
 }
 
