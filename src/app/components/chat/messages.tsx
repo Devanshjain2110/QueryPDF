@@ -78,6 +78,7 @@ return (
         } else
           return (
             <Message
+            
               message={message}
               isNextMessageSamePerson={
                 isNextMessageSamePerson
@@ -90,7 +91,7 @@ return (
       <div className='w-full flex flex-col gap-2'>
         <div className="p-3 w-auto h-14 md:h-32 bg-slate-200 rounded-md animate-pulse m-4"></div>
           <div className="p-3 w-auto h-14 md:h-32 bg-slate-200 rounded-md animate-pulse m-4"></div>
-          <div className="p-3 w-auto h-14 md:h-32 bg-slate-200 rounded-md animate-pulse m-4"></div>
+          <div className="p-3 w-auto h-14 md:h-32 bg-slate-200 rounded-md animate-pulse m-4"></div> 
       </div>
     ) : (
       <div className='flex-1 flex flex-col items-center justify-center gap-2'>
