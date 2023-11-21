@@ -4,6 +4,7 @@ import { useContext, useEffect, useRef } from "react";
 import { ChatContext } from "./chatContext";
 import { Loader2, MessageSquare } from "lucide-react";
 import { useIntersection } from '@mantine/hooks'
+import Message from "./message";
 
 interface MessagesProps {
   fileId: string;
@@ -76,21 +77,20 @@ return (
           )
         } else
           return (
-            // <Message
-            //   message={message}
-            //   isNextMessageSamePerson={
-            //     isNextMessageSamePerson
-            //   }
-            //   key={message.id}
-            // />
+            <Message
+              message={message}
+              isNextMessageSamePerson={
+                isNextMessageSamePerson
+              }
+              key={message.id}
+            />
           )
       })
     ) : isLoading ? (
       <div className='w-full flex flex-col gap-2'>
-        {/* <Skeleton className='h-16' />
-        <Skeleton className='h-16' />
-        <Skeleton className='h-16' />
-        <Skeleton className='h-16' /> */}
+        <div className="p-3 w-auto h-14 md:h-32 bg-slate-200 rounded-md animate-pulse m-4"></div>
+          <div className="p-3 w-auto h-14 md:h-32 bg-slate-200 rounded-md animate-pulse m-4"></div>
+          <div className="p-3 w-auto h-14 md:h-32 bg-slate-200 rounded-md animate-pulse m-4"></div>
       </div>
     ) : (
       <div className='flex-1 flex flex-col items-center justify-center gap-2'>
