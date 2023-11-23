@@ -27,7 +27,7 @@
     "@trpc/next": "^10.43.0",
     "@trpc/react-query": "^10.43.0",
     "@trpc/server": "^10.43.0",
-    "@uploadthing/react": "^5.7.0",
+    "@uploadthing/react": "^6.0.2",
     "ai": "^2.2.24",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -50,7 +50,7 @@
     "stripe": "^14.5.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
-    "uploadthing": "^5.7.4",
+    "uploadthing": "^6.0.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {

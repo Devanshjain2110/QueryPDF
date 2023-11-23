@@ -19,6 +19,7 @@ import { getUserSubscriptionPlan } from '@/lib/stripe';
 
     if(!dbUser) redirect('/auth-callback?origin=dashboard')
     const subscriptionPlan = await getUserSubscriptionPlan()
+  console.log(subscriptionPlan)
   return (
    <Dashboard subscriptionPlan={subscriptionPlan}/>
   )

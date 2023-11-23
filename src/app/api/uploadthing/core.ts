@@ -17,6 +17,7 @@ const middleware = async () => {
 
   if (!user || !user.id) throw new Error("Unauthorized");
   const subscriptionPlan = await getUserSubscriptionPlan();
+
   return { subscriptionPlan, userId: user.id };
 };
 
@@ -31,6 +32,8 @@ const onUploadComplete = async ({
     url: string;
   };
 }) => {
+
+  // throw new Error("New Error")
   const isFileExist = await db.file.findFirst({
     where: {
       key: file.key,
@@ -102,7 +105,7 @@ export const ourFileRouter = {
     .onUploadComplete(onUploadComplete),
   proPlanUploader: f({ pdf: { maxFileSize: "16MB" } })
     .middleware(middleware)
-    .onUploadComplete(onUploadComplete),
+    .onUploadComplete(onUploadComplete),  
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
