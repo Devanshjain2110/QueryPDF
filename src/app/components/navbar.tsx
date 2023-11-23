@@ -4,6 +4,7 @@ import Link from 'next/link'
 import {LoginLink, RegisterLink, getKindeServerSession} from '@kinde-oss/kinde-auth-nextjs/server'
 import { BsArrowRight } from 'react-icons/bs'
 import UserAccountNav from './UserAccountNav'
+import MobileNav from './mobileNav'
 
 function Navbar() {
   const { getUser } = getKindeServerSession()
@@ -13,8 +14,10 @@ function Navbar() {
       <MaxWidthWrapper>
         <div className='flex h-14 items-center justify-between border-b  border-zinc-100'>
             <Link href={'/'} className='flex z-40 font-semibold'>
-                <span>QueryPDF</span>
+                <span>QueryPDF.</span>
             </Link>
+
+            <MobileNav isAuth={!!user}/>
             <div className="items-center hidden space-x-4 sm:flex">
               {!user ?  <>
                 <Link href={'/pricing'} className='font-medium hover:bg-zinc-100 px-2 py-1 rounded-lg'>Pricing</Link>

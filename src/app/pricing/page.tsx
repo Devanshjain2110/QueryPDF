@@ -218,7 +218,7 @@ const Page = () => {
                           href={
                             user ? '/dashboard' : '/sign-in'
                           }>
-                            <button className='flex w-full mx-auto mt-2 font-semibold bg-zinc-100  py-2 rounded-lg px-36 text-black'>
+                            <button className='flex w-full mx-auto  mt-2 font-semibold bg-zinc-100  py-2 rounded-lg px-40 text-black'>
                           {user ? 'Upgrade now' : 'Sign up'}
                           <ArrowRight className='h-5 w-5 ml-1.5 mt-1' />
                           </button>

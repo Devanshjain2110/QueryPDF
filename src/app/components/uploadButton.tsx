@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import UploadArea from "./uploadArea"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-function UploadButton() {
+function UploadButton({isSubscribed,} : {isSubscribed : boolean}) {
     const [isOpen, setIsOpen] = useState<boolean>(false)
  
    
@@ -24,7 +24,7 @@ onOpenChange={(v) => {
 </DialogTrigger>
 
 <DialogContent>
-  <UploadArea />
+  <UploadArea isSubscribed={isSubscribed}/>
 </DialogContent>
 </Dialog>
 
