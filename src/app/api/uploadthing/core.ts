@@ -66,16 +66,7 @@ const onUploadComplete = async ({
     const isFreeExceeded =
       pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
 
-    if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
-      await db.file.update({
-        data: {
-          uploadStatus: "FAILED",
-        },
-        where: {
-          id: createdFile.id,
-        },
-      });
-    }
+    
     //vectorize aand index the document
     const pineconeIndex = pinecone.Index("querypdf"); // Use a single index name
 
@@ -92,6 +83,16 @@ const onUploadComplete = async ({
       data: { uploadStatus: "SUCCESS" },
       where: { id: createdFile.id },
     });
+    if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
+      await db.file.update({
+        data: {
+          uploadStatus: "FAILED",
+        },
+        where: {
+          id: createdFile.id,
+        },
+      });
+    }
   } catch (err) {
     await db.file.update({
       data: { uploadStatus: "FAILED" },

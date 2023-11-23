@@ -134,7 +134,8 @@ function UploadArea({ isSubscribed }: { isSubscribed: boolean }) {
                 type="file"
                 className="hidden"
                 id="dropzone-file"
-                {...getInputProps()}
+                {...getInputProps() }
+                disabled
               />
             </label>
           </div>
