@@ -86,7 +86,7 @@ const {toast} = useToast()
               setValue("page", String(currPage-1))
             }}
           >
-            <FaChevronDown />
+               <FaChevronUp />
           </button>
           <div className="flex items-center gap-1.5">
             <input
@@ -118,7 +118,8 @@ const {toast} = useToast()
               setValue("page", String(currPage+1))
             }}
           >
-            <FaChevronUp />
+              <FaChevronDown />
+       
           </button>
         </div>
         <div className='flex space-x-2'>
