@@ -13,7 +13,10 @@ export const appRouter = router({
     const { getUser } = getKindeServerSession();
     const user = getUser();
 
-    if (!user?.email || !user.id) throw new TRPCError({ code: "UNAUTHORIZED" });
+    if (!user?.email || !user.id) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    
+    }
 
     const dbUser = await db.user.findFirst({
       where: {
@@ -101,70 +104,69 @@ export const appRouter = router({
       if (!file) throw new TRPCError({ code: "NOT_FOUND" });
       const messages = await db.message.findMany({
         take: limit + 1,
-        where : {
-          fileId
+        where: {
+          fileId,
         },
-        orderBy : {
-          createdAt : "desc"
+        orderBy: {
+          createdAt: "desc",
         },
-        cursor :  cursor ? {id:cursor} : undefined,
-        select : {
-          id : true,
-          isUserMessage : true,
-          createdAt : true,
-          text : true
-        }
-
+        cursor: cursor ? { id: cursor } : undefined,
+        select: {
+          id: true,
+          isUserMessage: true,
+          createdAt: true,
+          text: true,
+        },
       });
-      let nextCursor: typeof cursor | undefined =  undefined
-      if(messages.length > limit){
-        const nextItem = messages.pop()
-        nextCursor = nextItem?.id
-      } 
+      let nextCursor: typeof cursor | undefined = undefined;
+      if (messages.length > limit) {
+        const nextItem = messages.pop();
+        nextCursor = nextItem?.id;
+      }
       return {
         messages,
         nextCursor,
-      }
+      };
     }),
 
-    createStripeSession : privateProcedure.mutation(async({ctx}) => {
-const {userId} = ctx
-const billingUrl = absoluteUrl("/dashboard/billing")
+  createStripeSession: privateProcedure.mutation(async ({ ctx }) => {
+    const { userId } = ctx;
+    const billingUrl = absoluteUrl("/dashboard/billing");
 
-if(!userId) throw new TRPCError({code : "UNAUTHORIZED"})
-const dbUser =  await db.user.findFirst({
-  where: {
-    id:userId
-  }
-})
-if(!dbUser) throw new TRPCError({code:"UNAUTHORIZED"})
-const subscriptionPlan = await getUserSubscriptionPlan()
-if(subscriptionPlan.isSubscribed && dbUser.stripeCustomerId){
-  const stripeSession = await stripe.billingPortal.sessions.create({
-    customer :dbUser.stripeCustomerId,
-    return_url : billingUrl
-  })
+    if (!userId) throw new TRPCError({ code: "UNAUTHORIZED" });
+    const dbUser = await db.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+    if (!dbUser) throw new TRPCError({ code: "UNAUTHORIZED" });
+    const subscriptionPlan = await getUserSubscriptionPlan();
+    if (subscriptionPlan.isSubscribed && dbUser.stripeCustomerId) {
+      const stripeSession = await stripe.billingPortal.sessions.create({
+        customer: dbUser.stripeCustomerId,
+        return_url: billingUrl,
+      });
 
-  return {url: stripeSession.url}
-}
-const stripeSession = await stripe.checkout.sessions.create({
-  success_url : billingUrl,
-  cancel_url : billingUrl,
-  payment_method_types: ["card" ],
-  mode : "subscription",
-  billing_address_collection : "auto",
-  line_items : [
-    {
-      price : PLANS.find((plan) => plan.name === "Pro")?.price.priceIds.test,
-      quantity : 1
+      return { url: stripeSession.url };
     }
-  ],
-  metadata : {
-    userId : userId
-  }
-})
-return {url :stripeSession.url}
-    }),
+    const stripeSession = await stripe.checkout.sessions.create({
+      success_url: billingUrl,
+      cancel_url: billingUrl,
+      payment_method_types: ["card"],
+      mode: "subscription",
+      billing_address_collection: "auto",
+      line_items: [
+        {
+          price: PLANS.find((plan) => plan.name === "Pro")?.price.priceIds.test,
+          quantity: 1,
+        },
+      ],
+      metadata: {
+        userId: userId,
+      },
+    });
+    return { url: stripeSession.url };
+  }),
 
   getFileUploadStatus: privateProcedure
     .input(z.object({ fileId: z.string() }))
