@@ -1,6 +1,6 @@
 # QueryPDF - Your AI PDF Chatbot
 
-Welcome to QueryPDF, a cutting-edge SAAS product that revolutionizes the way users interact with PDF documents. Our intelligent chatbot powered by state-of-the-art AI technology allows seamless communication, enabling users to ask questions and receive insightful answers about their PDFs.
+Welcome to [QueryPDF](https://query-pdf.vercel.app/), a cutting-edge SAAS product that revolutionizes the way users interact with PDF documents. Our intelligent chatbot powered by state-of-the-art AI technology allows seamless communication, enabling users to ask questions and receive insightful answers about their PDFs.
 
 
 ![Screenshot (709)](https://github.com/Devanshjain2110/QueryPDF/assets/92254216/7dc60b21-b007-48d0-9a6f-89a587170129)
@@ -24,41 +24,41 @@ Welcome to QueryPDF, a cutting-edge SAAS product that revolutionizes the way use
 
 ## Technologies Used
 
- - NextJS: A React framework that enables server-side rendering and other performance optimizations.
+ - [NextJS](https://nextjs.org/): A React framework that enables server-side rendering and other performance optimizations.
 
- - React: A popular JavaScript library for building user interfaces.
+ - [React](https://react.dev/): A popular JavaScript library for building user interfaces.
 
- - Prisma: A database toolkit that enhances database access and management.
+ - [Prisma](https://www.prisma.io/): A database toolkit that enhances database access and management.
 
- - Trpc: Implemented for enhanced data safety and efficient communication between server and client.
+ - [Trpc](https://trpc.io/): Implemented for enhanced data safety and efficient communication between server and client.
 
- - Pinecone: Used to optimize vector database functionalities for improved performance.
+ - [Pinecone](https://www.pinecone.io/): Used to optimize vector database functionalities for improved performance.
 
- - Typescript: A typed superset of JavaScript that enhances code quality and maintainability.
+ - [Typescript](https://www.typescriptlang.org/): A typed superset of JavaScript that enhances code quality and maintainability.
 
- - Stripe: Integrated for secure and seamless payment processing.
+ - [Stripe](https://stripe.com/en-in): Integrated for secure and seamless payment processing.
 
- - Zod: A TypeScript-first schema declaration and validation library.
+ - [Zod](https://zod.dev/): A TypeScript-first schema declaration and validation library.
 
- - PlanetScale: Utilized for secure storage of user profiles.
+ - [PlanetScale](https://planetscale.com/): Utilized for secure storage of user profiles.
 
- - KindeAuth: Ensures secure user authentication.
+ - [KindeAuth](https://kinde.com/): Ensures secure user authentication.
 
- - Tailwind: A utility-first CSS framework for styling the application.
+ - [Tailwind](https://tailwindcss.com/): A utility-first CSS framework for styling the application.
 
- - Shadcn: Used it to make multiple components like dropdown menu, dialog, toast, avatar etc. 
+ - [Shadcn](https://ui.shadcn.com/): Used it to make multiple components like dropdown menu, dialog, toast, avatar etc. 
 
- - UploadThing: Empower your file management with UploadThing, a cutting-edge solution using React, Node.js, MongoDB, AWS S3, and more for seamless and secure file uploads.
+ - [UploadThing](https://uploadthing.com/): Empower your file management with UploadThing, a cutting-edge solution using React, Node.js, MongoDB, AWS S3, and more for seamless and secure file uploads.
 
- -  Langchain: Employed to optimize language model functionalities.
+ -  [Langchain](https://www.langchain.com/): Employed to optimize language model functionalities.
 
- - Lucide-React: Integrated for customizable icon components.
+ - [Lucide-React](https://lucide.dev/): Integrated for customizable icon components.
 
- - React-Dropzone: Utilized for easy and intuitive file uploads.
+ - [React-Dropzone](https://react-dropzone.js.org/): Utilized for easy and intuitive file uploads.
 
- - React-PDF: Incorporated for seamless PDF rendering.
+ - [React-PDF](https://react-pdf.org/): Incorporated for seamless PDF rendering.
 
- - Tailwind Merge: Implemented for efficient management of Tailwind CSS styles.
+ - [Tailwind Merge](https://www.npmjs.com/package/tailwind-merge): Implemented for efficient management of Tailwind CSS styles.
 
 
 
