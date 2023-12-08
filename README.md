@@ -1,3 +1,53 @@
+Welcome to QueryPDF, a cutting-edge SAAS product that revolutionizes the way users interact with PDF documents. Our intelligent chatbot powered by state-of-the-art AI technology allows seamless communication, enabling users to ask questions and receive insightful answers about their PDFs.
+
+Key Features
+Intelligent Chatbot: Engage with your PDFs in a natural, conversational manner. The AI-powered chatbot understands your queries and provides relevant information.
+
+Secure User Profile Storage: Utilizing PlanetScale MySQL and Prisma ensures robust and secure storage of user profiles, prioritizing the safety of your data.
+
+Enhanced Data Safety: Implemented trpc to enhance data safety between the server and client, ensuring a secure and efficient communication channel.
+
+Optimized Vector Database: Leveraging Pinecone, our system optimizes vector database functionalities, enhancing the overall performance and accuracy of the AI-powered chatbot.
+
+Language Model Optimization: Langchain is integrated to optimize language model functionalities, providing a more refined and efficient interaction experience.
+
+Authentication with KindeAuth: Secure user authentication is achieved through KindeAuth, guaranteeing a reliable and trustworthy login process.
+
+Secure Payments with Stripe: Integrated Stripe for seamless and secure payment processing, ensuring a smooth user experience while prioritizing financial security.
+
+Technologies Used
+NextJS: A React framework that enables server-side rendering and other performance optimizations.
+
+React: A popular JavaScript library for building user interfaces.
+
+Prisma: A database toolkit that enhances database access and management.
+
+Trpc: Implemented for enhanced data safety and efficient communication between server and client.
+
+Pinecone: Used to optimize vector database functionalities for improved performance.
+
+Typescript: A typed superset of JavaScript that enhances code quality and maintainability.
+
+Stripe: Integrated for secure and seamless payment processing.
+
+Zod: A TypeScript-first schema declaration and validation library.
+
+PlanetScale: Utilized for secure storage of user profiles.
+
+KindeAuth: Ensures secure user authentication.
+
+Tailwind: A utility-first CSS framework for styling the application.
+
+Shadcn: Used it to make multiple components like dropdown menu 
+
+
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
